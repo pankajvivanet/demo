@@ -1,0 +1,30 @@
+
+service: spring-boot-serverless
+
+app: spring-boot
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: java11
+  region: us-east-1
+  timeout: 60
+
+package:
+  artifact: target/demo-0.0.1-SNAPSHOT-lambda-package.zip
+
+functions:
+  springBootServerless:
+    handler: com.serverless.example.LambdaHandler
+    events:
+      - http:
+          path: /users
+          method: get
+      - http:
+          path: /getProjects
+          method: get
+      - http:
+          path: /createProject
+          method: post          
+    timeout: 60
